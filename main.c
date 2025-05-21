@@ -5,8 +5,9 @@ const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", 
 
 typedef struct perangkat{
     int alats;
-    int jamPemakaian;
-}alat;
+    int jamPemakaian;    
+    int status;
+} alat;
 
 typedef enum tipeRumah{
     KECIL,
