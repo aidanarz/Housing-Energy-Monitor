@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define KILO 1000;
+
 const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
 
 typedef enum{
@@ -33,7 +35,7 @@ int perbandingan(int konsumsi[9]) {
     konsumsi[8] -= 24000;
 
     for (int i = 0; i < 9; i++) {
-        if (konsumsi[i] < 0) {
+        if (konsumsi[i] > 0) {
                 return i;
         }
     }
