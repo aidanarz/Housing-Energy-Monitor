@@ -3,10 +3,15 @@
 
 const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
 
+typedef enum{
+    NORMAL,
+    OVER
+}statusAlat;
+
 typedef struct {
-    int alats;
+    int jumlahAlat;
     int jamPemakaian;    
-    int status;
+    statusAlat status;
 } alat;
 
 
@@ -15,11 +20,11 @@ int main() {
 
     for(int i = 0; i < 9; i++) {
         printf("input jumlah perangkat %s dan berapa jam digunakan dalam sehari\n", namaAlat[i]);
-        scanf("%d %d", &alat1[i].alats, &alat1[i].jamPemakaian);
+        scanf("%d %d", &alat1[i].jumlahAlat, &alat1[i].jamPemakaian);
     }
 
     for (int i = 0; i < 9; i++) {
-        printf("\nSetiap %d %s menyala selama %d jam/hari", alat1[i].alats, namaAlat[i], alat1[i].jamPemakaian);
+        printf("\nSetiap %d %s menyala selama %d jam/hari", alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian);
     }
     
     // list batas normal
