@@ -33,43 +33,17 @@ typedef enum tipeRumah{
 }; 
 
 void total_konsumsi(alat *alat_point) {
+    int daya[] = {
+        WATT_AC, WATT_KULKAS, WATT_MESIN_CUCI, WATT_SETRIKA,
+        WATT_DISPENSER, WATT_POMPA_AIR, WATT_TV, WATT_LAMPU, WATT_RICE_COOKER
+    };
+
     for(int i = 0; i < 9; i++) {
-        switch(i){
-            case 0:
-                alat_point[i].jumlahKonsumsi =  WATT_AC * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 1:
-                alat_point[i].jumlahKonsumsi =  WATT_KULKAS * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 2:
-                alat_point[i].jumlahKonsumsi =  WATT_MESIN_CUCI * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 3:
-                alat_point[i].jumlahKonsumsi =  WATT_SETRIKA * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 4:
-                alat_point[i].jumlahKonsumsi =  WATT_DISPENSER * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 5:
-                alat_point[i].jumlahKonsumsi =  WATT_POMPA_AIR * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 6:
-                alat_point[i].jumlahKonsumsi =  WATT_TV * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 7:
-                alat_point[i].jumlahKonsumsi =  WATT_LAMPU * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            case 8:
-                alat_point[i].jumlahKonsumsi =  WATT_RICE_COOKER * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
-                break;
-            default:
-                break;
-        }
+        alat_point[i].jumlahKonsumsi = daya[i] * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
     }
 }
 
 int perbandingan(int konsumsi[9]) {
-
     konsumsi[0] -= 84 * KILO;
     konsumsi[1] -= 108 * KILO;
     konsumsi[2] -= 6 * KILO;
@@ -87,52 +61,52 @@ int perbandingan(int konsumsi[9]) {
     }
 }
 
-void rekomendasi(alat listAlat[9]){
+void rekomendasi(alat *alat_point){
     printf("Rekomendasi: \n");
     for(int i = 0; i < 9; i++){
         switch(i){
             case 0:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Kurangi durasi pemakaian\n- Atur suhu 26-27°C\n- Gunakan mode eco/sleep\n- Servis filter berkala\n");
                 }
                 break;
             case 1:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Cek karet pintu & freon\n- Jangan buka pintu terlalu lama\n- Jaga jarak kulkas dari dinding\n");
                 }
                 break;
             case 2:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Gunakan air suhu normal\n- Cuci dengan muatan penuh\n- Gunakan mode eco\n- Hindari mode pengering berlebihan\n");
                 }
                 break;
             case 3:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Gunakan suhu sesuai bahan\n- Setrika banyak pakaian sekaligus\n");
                 }
                 break;
             case 4:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Matikan saat tidak digunakan\n- Ganti dengan termos listrik pintar\n");
                 }
                 break;
             case 5:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Deteksi kebocoran\n- Gunakan toren besar\n- Pasang pelampung otomatis\n");
                 }
                 break;
             case 6:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Gunakan TV LED\n- Matikan saat tidak digunakan\n- Gunakan mode eco\n- Batasi waktu menonton\n");
                 }
                 break;
             case 7:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Gunakan lampu LED\n- Matikan saat tidak digunakan\n");
                 }
                 break;
             case 8:
-                if(listAlat[i].status == OVER){
+                if(alat_point[i].status == OVER){
                     printf("- Matikan mode keep warm setelah 1-2 jam setelah memasak\n- Gunakan magic jar terpisah jika hanya ingin menghangatkan\n");
                 }
                 break;
@@ -151,6 +125,10 @@ int main() {
     for (int i = 0; i < 9; i++) {
         printf("\nSetiap %d %s menyala selama %d jam/hari", alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian);
     }
+
+    total_konsumsi(alat1);
+    perbandingan(alat1);
+    rekomendasi(alat1);
     
     // list batas normal
     // AC = 84 kWh / 30 hari, 4jam/hari
