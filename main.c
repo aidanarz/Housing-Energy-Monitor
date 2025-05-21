@@ -6,6 +6,7 @@ const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", 
 typedef struct {
     int alats;
     int jamPemakaian;    
+    int status;
 } alat;
 
 
