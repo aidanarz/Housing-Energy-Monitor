@@ -2,6 +2,15 @@
 #include <string.h>
 
 #define KILO 1000
+#define WATT_AC 500
+#define WATT_KULKAS 150
+#define WATT_MESIN_CUCI 500
+#define WATT_SETRIKA 300
+#define WATT_DISPENSER 150
+#define WATT_POMPA_AIR 500
+#define WATT_TV 120
+#define WATT_LAMPU 10
+#define WATT_RICE_COOKER 400
 
 const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
 
@@ -14,6 +23,7 @@ typedef struct {
     int jumlahAlat;
     int jamPemakaian;    
     statusAlat status;
+    int jumlahKonsumsi;
 } alat;
 
 typedef enum tipeRumah{
@@ -21,6 +31,42 @@ typedef enum tipeRumah{
     SEDANG,
     BESAR
 }; 
+
+void total_konsumsi(alat *alat_point) {
+    for(int i = 0; i < 9; i++) {
+        switch(i){
+            case 0:
+                alat_point[i].jumlahKonsumsi =  WATT_AC * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 1:
+                alat_point[i].jumlahKonsumsi =  WATT_KULKAS * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 2:
+                alat_point[i].jumlahKonsumsi =  WATT_MESIN_CUCI * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 3:
+                alat_point[i].jumlahKonsumsi =  WATT_SETRIKA * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 4:
+                alat_point[i].jumlahKonsumsi =  WATT_DISPENSER * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 5:
+                alat_point[i].jumlahKonsumsi =  WATT_POMPA_AIR * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 6:
+                alat_point[i].jumlahKonsumsi =  WATT_TV * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 7:
+                alat_point[i].jumlahKonsumsi =  WATT_LAMPU * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            case 8:
+                alat_point[i].jumlahKonsumsi =  WATT_RICE_COOKER * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat;
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 int perbandingan(int konsumsi[9]) {
 
@@ -36,8 +82,8 @@ int perbandingan(int konsumsi[9]) {
 
     for (int i = 0; i < 9; i++) {
         if (konsumsi[i] > 0) {
-                return i;
-        }
+            return i;
+        } 
     }
 }
 
