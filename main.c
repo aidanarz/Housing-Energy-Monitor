@@ -41,6 +41,59 @@ int perbandingan(int konsumsi[9]) {
     }
 }
 
+void rekomendasi(alat listAlat[9]){
+    printf("Rekomendasi: \n");
+    for(int i = 0; i < 9; i++){
+        switch(i){
+            case 0:
+                if(listAlat[i].status == OVER){
+                    printf("- Kurangi durasi pemakaian\n- Atur suhu 26-27°C\n- Gunakan mode eco/sleep\n- Servis filter berkala\n");
+                }
+                break;
+            case 1:
+                if(listAlat[i].status == OVER){
+                    printf("- Cek karet pintu & freon\n- Jangan buka pintu terlalu lama\n- Jaga jarak kulkas dari dinding\n");
+                }
+                break;
+            case 2:
+                if(listAlat[i].status == OVER){
+                    printf("- Gunakan air suhu normal\n- Cuci dengan muatan penuh\n- Gunakan mode eco\n- Hindari mode pengering berlebihan\n");
+                }
+                break;
+            case 3:
+                if(listAlat[i].status == OVER){
+                    printf("- Gunakan suhu sesuai bahan\n- Setrika banyak pakaian sekaligus\n");
+                }
+                break;
+            case 4:
+                if(listAlat[i].status == OVER){
+                    printf("- Matikan saat tidak digunakan\n- Ganti dengan termos listrik pintar\n");
+                }
+                break;
+            case 5:
+                if(listAlat[i].status == OVER){
+                    printf("- Deteksi kebocoran\n- Gunakan toren besar\n- Pasang pelampung otomatis\n");
+                }
+                break;
+            case 6:
+                if(listAlat[i].status == OVER){
+                    printf("- Gunakan TV LED\n- Matikan saat tidak digunakan\n- Gunakan mode eco\n- Batasi waktu menonton\n");
+                }
+                break;
+            case 7:
+                if(listAlat[i].status == OVER){
+                    printf("- Gunakan lampu LED\n- Matikan saat tidak digunakan\n");
+                }
+                break;
+            case 8:
+                if(listAlat[i].status == OVER){
+                    printf("- Matikan mode keep warm setelah 1-2 jam setelah memasak\n- Gunakan magic jar terpisah jika hanya ingin menghangatkan\n");
+                }
+                break;
+        }
+    }
+}
+
 int main() {
     alat alat1[9];
 
