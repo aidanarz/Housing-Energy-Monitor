@@ -24,15 +24,15 @@ typedef enum tipeRumah{
 
 int perbandingan(int konsumsi[9]) {
 
-    konsumsi[0] -= 84000;
-    konsumsi[1] -= 108000;
-    konsumsi[2] -= 6000;
-    konsumsi[3] -= 5000;
-    konsumsi[4] -= 30000;
-    konsumsi[5] -= 15000;
-    konsumsi[6] -= 18000;
-    konsumsi[7] -= 30000;
-    konsumsi[8] -= 24000;
+    konsumsi[0] -= 84 * KILO;
+    konsumsi[1] -= 108 * KILO;
+    konsumsi[2] -= 6 * KILO;
+    konsumsi[3] -= 5 * KILO;
+    konsumsi[4] -= 30 * KILO;
+    konsumsi[5] -= 15 * KILO;
+    konsumsi[6] -= 18 * KILO;
+    konsumsi[7] -= 30 * KILO;
+    konsumsi[8] -= 24 * KILO;
 
     for (int i = 0; i < 9; i++) {
         if (konsumsi[i] > 0) {
