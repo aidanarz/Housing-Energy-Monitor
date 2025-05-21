@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define KILO 1000;
+#define KILO 1000
 
 const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
 
