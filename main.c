@@ -49,8 +49,6 @@ void perbandingan(alat *alat_point);
 void rekomendasi(alat *alat_point);
 void sort(alat *alat_point, char namaAlatSorted[][20]);
 
-
-
 int main() {
     // define variabel struct dan array
     alat alat1[9];
@@ -65,14 +63,14 @@ int main() {
 
     // meminta input dari user dengan validasi jam pemakaian tidak boleh lebih dari 24 jam, dan jumlah alat serta jam pemakaian tidak bisa di bawah 0
     for(int i = 0; i < 9; i++) {
+        printf("Jumlah %s: ", namaAlat[i]);
+        scanf("%d", &alat1[i].jumlahAlat);
+        printf("Jam Pemakaian %s: ", namaAlat[i]);
+        scanf("%d", &alat1[i].jamPemakaian);
+
         if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 0 || alat1[i].jamPemakaian < 0) {
             printf("Jumlah perangkat atau jam penggunaannya salah!\n");
-            i--;
-        } else {
-            printf("Jumlah %s: ", namaAlat[i]);
-            scanf("%d", &alat1[i].jumlahAlat);
-            printf("Jam Pemakaian %s: ", namaAlat[i]);
-            scanf("%d", &alat1[i].jamPemakaian);
+            i--; // repeat this alat
         }
     }
 
@@ -114,10 +112,10 @@ int main() {
             break;
     }
     
-    printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
-    for (int i = 0; i < 9; i++) {
-        printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlat[i], alat1[i].jumlahAlat, alat1[i].jamPemakaian, alat1[i].jumlahKonsumsi, alat1[i].status == OVER ? "OVER" : "NORMAL");
-    }
+    // printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
+    // for (int i = 0; i < 9; i++) {
+    //     printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlat[i], alat1[i].jumlahAlat, alat1[i].jamPemakaian, alat1[i].jumlahKonsumsi, alat1[i].status == OVER ? "OVER" : "NORMAL");
+    // }
     return 0;
 }
 
@@ -283,10 +281,14 @@ void sort(alat *alat_point, char namaAlatSorted[][20]){
         }
     }
 
-    printf("\n------------------------------------------------------\n");
-    printf("\nUrutan perangkat dari yang paling boros ke hemat per bulan:\n");
-    for (i = 8; i >= 0; i--) {
-        printf("%s: %d Wh\n", namaAlatSorted[i], alat_point[i].jumlahKonsumsi);
+    printf("\n------------------------------------------------------------------------------------------\n");
+    printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
+    // for (i = 8; i >= 0; i--) {
+    //     printf("%s: %d Wh\n", namaAlatSorted[i], alat_point[i].jumlahKonsumsi);
+    // }
+    printf("--------------------------------------------------------------------------------------------\n");
+
+    for (int i = 8; i >= 0; i--) {
+        printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlatSorted[i], alat_point[i].jumlahAlat, alat_point[i].jamPemakaian, alat_point[i].jumlahKonsumsi, alat_point[i].status == OVER ? "OVER" : "NORMAL");
     }
-    printf("------------------------------------------------------\n");
 }
