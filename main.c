@@ -48,8 +48,11 @@ int main() {
     info infoRumah;
 
     for(int i = 0; i < 9; i++) {
-        printf("input jumlah perangkat %s dan berapa jam digunakan dalam sehari\n", namaAlat[i]);
-        scanf("%d %d", &alat1[i].jumlahAlat, &alat1[i].jamPemakaian);
+        printf("Jumlah %s: ", namaAlat[i]);
+        scanf("%d", &alat1[i].jumlahAlat);
+        printf("Jam Pemakaian %s: ", namaAlat[i]);
+        scanf("%d", &alat1[i].jamPemakaian);
+
         if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 0 || alat1[i].jamPemakaian < 0) {
             printf("Jumlah perangkat atau jam penggunaannya salah!\n");
             i--;
