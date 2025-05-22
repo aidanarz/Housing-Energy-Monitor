@@ -42,10 +42,18 @@ void tipe_rumah(alat *alat_point, info *infoRumah);
 void total_konsumsi(alat *alat_point);
 void perbandingan(alat *alat_point);
 void rekomendasi(alat *alat_point);
+void sort(alat *alat_point, char namaAlatSorted[][20]);
+
+
 
 int main() {
     alat alat1[9];
     info infoRumah;
+    char namaAlatSorted[9][20];
+
+    for(int i = 0; i < 9; i++) {
+        strcpy(namaAlatSorted[i], namaAlat[i]);
+    }
 
     for(int i = 0; i < 9; i++) {
         printf("Jumlah %s: ", namaAlat[i]);
@@ -70,6 +78,7 @@ int main() {
     tipe_rumah(alat1, &infoRumah);
     perbandingan(alat1);
     printf("\nTotal Konsumsi Listrik Selama Sebulan %.2f KWh", (infoRumah.total / KILO));
+    sort(alat1, namaAlatSorted);
     rekomendasi(alat1);
 
     puts("");
@@ -227,4 +236,31 @@ void rekomendasi(alat *alat_point) {
                 break;
         }
     }
+}
+
+void sort(alat *alat_point, char namaAlatSorted[][20]){
+    int i, j;
+    alat temp;
+    char tempNama[20];
+
+    for (i = 0; i < 9 - 1; i++) {
+        for (j = 0; j < 9 - i - 1; j++) {
+            if (alat_point[j].jumlahKonsumsi > alat_point[j + 1].jumlahKonsumsi) {
+                temp = alat_point[j];
+                alat_point[j] = alat_point[j + 1];
+                alat_point[j + 1] = temp;
+
+                strcpy(tempNama, namaAlatSorted[j]);
+                strcpy(namaAlatSorted[j], namaAlatSorted[j + 1]);
+                strcpy(namaAlatSorted[j + 1], tempNama);
+            }
+        }
+    }
+
+    printf("\n------------------------------------------------------\n");
+    printf("\nUrutan perangkat dari yang paling boros ke hemat per bulan:\n");
+    for (i = 8; i >= 0; i--) {
+        printf("%s: %d Wh\n", namaAlatSorted[i], alat_point[i].jumlahKonsumsi);
+    }
+    printf("------------------------------------------------------\n");
 }
