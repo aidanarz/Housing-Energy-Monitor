@@ -59,7 +59,9 @@ int main() {
     total_konsumsi(alat1);
 
     for (int i = 0; i < 9; i++) {
-        printf("%d %s menyala selama %d jam/hari dengan masing masing memakan daya: %d Wh\n", alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian, (alat1[i].jumlahKonsumsi/30));
+        printf("%d %s menyala selama %d jam/hari dengan masing masing memakan daya: %d Wh/hari atau %d Wh/bulan\n", 
+        alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian, 
+        (alat1[i].jumlahKonsumsi / 30), alat1[i].jumlahKonsumsi);
     }
 
     tipe_rumah(alat1, &infoRumah);
@@ -109,15 +111,14 @@ void tipe_rumah(alat *alat_point, info *infoRumah) {
 }
 
 void total_konsumsi(alat *alat_point) {
-
     int daya[] = {
         WATT_AC, WATT_KULKAS, WATT_MESIN_CUCI, WATT_SETRIKA,
         WATT_DISPENSER, WATT_POMPA_AIR, WATT_TV, WATT_LAMPU, WATT_RICE_COOKER
     };
 
     for(int i = 0; i < 9; i++) {
-        alat_point[i].jumlahKonsumsi = (daya[i] * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat * 30);        
-    }    
+        alat_point[i].jumlahKonsumsi = daya[i] * alat_point[i].jamPemakaian * alat_point[i].jumlahAlat * 30;
+    }
 }
 
 void perbandingan(alat *alat_point) {
