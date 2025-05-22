@@ -84,6 +84,10 @@ int main() {
             break;
     }
     
+    printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
+    for (int i = 0; i < 9; i++) {
+        printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlat[i], alat1[i].jumlahAlat, alat1[i].jamPemakaian, alat1[i].jumlahKonsumsi, alat1[i].status == OVER ? "OVER" : "NORMAL");
+    }
     return 0;
 }
 
