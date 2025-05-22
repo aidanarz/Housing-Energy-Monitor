@@ -26,11 +26,11 @@ typedef struct {
     int jumlahKonsumsi;
 } alat;
 
-typedef enum tipeRumah{
+typedef enum {
     KECIL,
     SEDANG,
     BESAR
-}typeRumah; 
+}tipeRumah; 
 
 void total_konsumsi(alat *alat_point) {
     int daya[] = {
