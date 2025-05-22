@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// define beberapa variabel tetap yang akan digunakan
 #define KILO 1000
 #define WATT_AC 500
 #define WATT_KULKAS 150
@@ -12,8 +13,10 @@
 #define WATT_LAMPU 10
 #define WATT_RICE_COOKER 400
 
+// membuat list alat tetap yang akan digunakan dalam bentuk array
 const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
 
+// membuat enum, dan struct yang dibutuhkan 
 typedef enum{
     NORMAL,
     OVER
@@ -38,6 +41,8 @@ typedef struct {
     tipeRumah tpRumah;
 }info;
 
+
+// mendefinisikan function function yang digunakan
 void tipe_rumah(alat *alat_point, info *infoRumah);
 void total_konsumsi(alat *alat_point);
 void perbandingan(alat *alat_point);
@@ -47,42 +52,53 @@ void sort(alat *alat_point, char namaAlatSorted[][20]);
 
 
 int main() {
+    // define variabel struct dan array
     alat alat1[9];
     info infoRumah;
     char namaAlatSorted[9][20];
 
+    // looping untuk mencopy string dari array namaAlat ke namaAlatSorted
     for(int i = 0; i < 9; i++) {
         strcpy(namaAlatSorted[i], namaAlat[i]);
     }
 
-    for(int i = 0; i < 9; i++) {
-        printf("Jumlah %s: ", namaAlat[i]);
-        scanf("%d", &alat1[i].jumlahAlat);
-        printf("Jam Pemakaian %s: ", namaAlat[i]);
-        scanf("%d", &alat1[i].jamPemakaian);
 
+    // meminta input dari user dengan validasi jam pemakaian tidak boleh lebih dari 24 jam, dan jumlah alat serta jam pemakaian tidak bisa di bawah 0
+    for(int i = 0; i < 9; i++) {
         if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 0 || alat1[i].jamPemakaian < 0) {
             printf("Jumlah perangkat atau jam penggunaannya salah!\n");
             i--;
+        } else {
+            printf("Jumlah %s: ", namaAlat[i]);
+            scanf("%d", &alat1[i].jumlahAlat);
+            printf("Jam Pemakaian %s: ", namaAlat[i]);
+            scanf("%d", &alat1[i].jamPemakaian);
         }
     }
 
+    // memanggil function total_konsumsi yang mengirimkan pointer dari struct alat
     total_konsumsi(alat1);
 
+    // menampilkan output-output yang dibutuhkan (display)
     for (int i = 0; i < 9; i++) {
         printf("%d %s menyala selama %d jam/hari dengan masing masing memakan daya: %d Wh/hari atau %d Wh/bulan\n", 
         alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian, 
         (alat1[i].jumlahKonsumsi / 30), alat1[i].jumlahKonsumsi);
     }
 
+    // memanggil fungsi tipe_rumah
     tipe_rumah(alat1, &infoRumah);
+    // memanggil fungsi perbandingan
     perbandingan(alat1);
     printf("\nTotal Konsumsi Listrik Selama Sebulan %.2f KWh", (infoRumah.total / KILO));
+    // memanggil fungsi sorting
     sort(alat1, namaAlatSorted);
+    // memanggil fungsi rekomendasi
     rekomendasi(alat1);
 
     puts("");
 
+    // menampilkan tipe rumah yang didapatkan dari hasil validasi fungsi tipe_rumah
     switch (infoRumah.tpRumah) {
         case KOS:
             puts("Anda tinggal di KOS!");
@@ -101,6 +117,7 @@ int main() {
     return 0;
 }
 
+// fungsi tipe_rumah, berfungsi sebagai menghitung seluruh nilai konsumsi alat-alat yang ada, dan nilai tersebut dilakukan validasi untuk dimasukkan ke dalam struct infoRumah
 void tipe_rumah(alat *alat_point, info *infoRumah) {
     infoRumah->total = 0;
 
@@ -122,6 +139,7 @@ void tipe_rumah(alat *alat_point, info *infoRumah) {
     }
 }
 
+// fungsi total_konsumsi, berfungsi untuk menghitung seluruh nilai dari masing-masing alat, berapa jumlah konsumsi nya dalam sebulan
 void total_konsumsi(alat *alat_point) {
     int daya[] = {
         WATT_AC, WATT_KULKAS, WATT_MESIN_CUCI, WATT_SETRIKA,
@@ -133,6 +151,7 @@ void total_konsumsi(alat *alat_point) {
     }
 }
 
+// fungsi perbandingan, berfungsi untuk melakukan perhitungan dan membandingkan jumlah konsumsi setiap alat dengan batas normal yang datanya didapatkan dari PLN, jika over atau normal akan dimasukkan ke dalam struct
 void perbandingan(alat *alat_point) {
     int batas[] = {
     84 * KILO, 108 * KILO, 25 * KILO, 25 * KILO,
@@ -149,6 +168,7 @@ void perbandingan(alat *alat_point) {
     }
 }
 
+// fungsi rekomendasi, berfungsi untuk menampilkan hasil dari validasi yang telah dilakukan di fungsi perbandingan. Jika over akan diberikan saran, dan jika normal tidak menampilkan apa2.
 void rekomendasi(alat *alat_point) {
     printf("\n\nRekomendasi: \n");
     for(int i = 0; i < 9; i++){
@@ -238,6 +258,8 @@ void rekomendasi(alat *alat_point) {
     }
 }
 
+
+// fungsi sort, berfungsi untuk melakukan sorting pada array nama alat, yang diurutkan berdasarkan jumlah konsumsi tertinggi dari yang terendah
 void sort(alat *alat_point, char namaAlatSorted[][20]){
     int i, j;
     alat temp;
