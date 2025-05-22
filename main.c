@@ -156,6 +156,7 @@ int main() {
     // fungsi nentuin tipe rumah pake enum
     // fungsi perbandingan batas normal
     // fungsi ngasih tau rekomendasi efisiensi daya
+    // Tes jarararararod
 
     return 0;
 }
