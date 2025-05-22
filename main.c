@@ -117,8 +117,8 @@ int main() {
     for(int i = 0; i < 9; i++) {
         printf("input jumlah perangkat %s dan berapa jam digunakan dalam sehari\n", namaAlat[i]);
         scanf("%d %d", &alat1[i].jumlahAlat, &alat1[i].jamPemakaian);
-        if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 1 || alat1[i].jamPemakaian < 1 || alat1[i].jumlahAlat % 1 != alat1[i].jumlahAlat || alat1[i].jamPemakaian % 1 != alat1[i].jamPemakaian) {
-            printf("Jumlah perangkat atau jam penggunaannya salah!");
+        if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 1 || alat1[i].jamPemakaian < 1) {
+            printf("Jumlah perangkat atau jam penggunaannya salah!\n");
             i--;
         }
     }
