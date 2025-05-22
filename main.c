@@ -43,21 +43,18 @@ void total_konsumsi(alat *alat_point) {
     }
 }
 
-int perbandingan(int konsumsi[9]) {
-    konsumsi[0] -= 84 * KILO;
-    konsumsi[1] -= 108 * KILO;
-    konsumsi[2] -= 6 * KILO;
-    konsumsi[3] -= 5 * KILO;
-    konsumsi[4] -= 30 * KILO;
-    konsumsi[5] -= 15 * KILO;
-    konsumsi[6] -= 18 * KILO;
-    konsumsi[7] -= 30 * KILO;
-    konsumsi[8] -= 24 * KILO;
+void perbandingan(alat *alat_point) {
+    int batas[] = {
+        84 * KILO, 108 * KILO, 6 * KILO, 5 * KILO,
+        30 * KILO, 15 * KILO, 18 * KILO, 30 * KILO, 24 * KILO
+    };
 
     for (int i = 0; i < 9; i++) {
-        if (konsumsi[i] > 0) {
-            return i;
-        } 
+        if (alat_point[i].jumlahKonsumsi > batas[i]) {
+            alat_point[i].status = OVER;
+        } else {
+            alat_point[i].status = NORMAL;
+        }
     }
 }
 
