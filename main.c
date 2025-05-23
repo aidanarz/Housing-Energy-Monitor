@@ -168,62 +168,46 @@ void perbandingan(alat *alat_point) {
 // fungsi rekomendasi, berfungsi untuk menampilkan hasil dari validasi yang telah dilakukan di fungsi perbandingan. Jika over akan diberikan saran, dan jika normal tidak menampilkan apa2.
 void rekomendasi(alat *alat_point) {
     printf("\nRekomendasi: \n");
-    for(int i = 0; i < 9; i++){
-        switch(i){
-            case 0:
-                if(alat_point[i].status == OVER){
+    for(int i = 0; i < 9; i++) {                        
+        if(alat_point[i].status == OVER) {
+            switch(i) {
+                case 0:
                     printf("AC: \n");
                     printf("- Kurangi durasi pemakaian\n- Atur suhu 26-27°C\n- Gunakan mode eco/sleep\n- Servis filter berkala\n");
-                }
-                break;
-            case 1:               
-                if(alat_point[i].status == OVER){
+                    break;
+                case 1:               
                     printf("\nKULKAS: \n");
                     printf("- Cek karet pintu & freon\n- Jangan buka pintu terlalu lama\n- Jaga jarak kulkas dari dinding\n");
-                }
-                break;
-            case 2:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 2:                
                     printf("\nMESIN CUCI: \n");
                     printf("- Gunakan air suhu normal\n- Cuci dengan muatan penuh\n- Gunakan mode eco\n- Hindari mode pengering berlebihan\n");
-                }
-                break;
-            case 3:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 3:                
                     printf("\nSETRIKA: \n");
                     printf("- Gunakan suhu sesuai bahan\n- Setrika banyak pakaian sekaligus\n");
-                }
-                break;
-            case 4:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 4:                
                     printf("\nDISPENSER: \n");
                     printf("- Matikan saat tidak digunakan\n- Ganti dengan termos listrik pintar\n");
-                }
-                break;
-            case 5:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 5:                
                     printf("\nPOMPA AIR: \n");
                     printf("- Deteksi kebocoran\n- Gunakan toren besar\n- Pasang pelampung otomatis\n");
-                }
-                break;
-            case 6:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 6:                
                     printf("\nTV: \n");
                     printf("- Gunakan TV LED\n- Matikan saat tidak digunakan\n- Gunakan mode eco\n- Batasi waktu menonton\n");
-                }
-                break;
-            case 7:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 7:                
                     printf("\nLampu: \n");
                     printf("- Gunakan lampu LED\n- Matikan saat tidak digunakan\n");
-                }
-                break;
-            case 8:                
-                if(alat_point[i].status == OVER){
+                    break;
+                case 8:
                     printf("\nRICE COOKER: \n");
                     printf("- Matikan mode keep warm setelah 1-2 jam setelah memasak\n- Gunakan magic jar terpisah jika hanya ingin menghangatkan\n");
-                }
-                break;
+                    break;
+            }
         }
     }
 }
