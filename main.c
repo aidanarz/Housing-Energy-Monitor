@@ -249,11 +249,11 @@ void sort(alat *alat_point, char namaAlatSorted[][20]){
     }
 
     printf("\n-----------------------------------------------------------------\n");
-    printf("%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
+    printf("%-15s %-10s %-10s %-20s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln(Wh)", "Status");
     printf("-----------------------------------------------------------------\n");
 
     for (int i = 8; i >= 0; i--) {
-        printf("%-15s %-10d %-10d %-15d %-10s\n", 
+        printf("%-15s %-10d %-10d %-20d %-10s\n", 
             namaAlatSorted[i], 
             alat_point[i].jumlahAlat, 
             alat_point[i].jamPemakaian, 
