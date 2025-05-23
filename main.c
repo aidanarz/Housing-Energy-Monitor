@@ -2,6 +2,7 @@
 #include <string.h>
 
 // define beberapa variabel tetap yang akan digunakan
+// Daya setiap alat berdasarkan referensi di README.md
 #define KILO 1000
 #define WATT_AC 500
 #define WATT_KULKAS 150
@@ -41,8 +42,7 @@ typedef struct {
     tipeRumah tpRumah;
 }info;
 
-
-// mendefinisikan function function yang digunakan
+// mendefinisikan function yang digunakan
 void tipe_rumah(alat *alat_point, info *infoRumah);
 void total_konsumsi(alat *alat_point);
 void perbandingan(alat *alat_point);
@@ -60,7 +60,6 @@ int main() {
         strcpy(namaAlatSorted[i], namaAlat[i]);
     }
 
-
     // meminta input dari user dengan validasi jam pemakaian tidak boleh lebih dari 24 jam, dan jumlah alat serta jam pemakaian tidak bisa di bawah 0
     for(int i = 0; i < 9; i++) {
         printf("Jumlah %s: ", namaAlat[i]);
@@ -68,6 +67,7 @@ int main() {
         printf("Jam Pemakaian %s: ", namaAlat[i]);
         scanf("%d", &alat1[i].jamPemakaian);
 
+        // error handling untuk inputan user
         if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 0 || alat1[i].jamPemakaian < 0) {
             printf("Jumlah perangkat atau jam penggunaannya salah!\n");
             i--; // repeat this alat
@@ -77,20 +77,19 @@ int main() {
     // memanggil function total_konsumsi yang mengirimkan pointer dari struct alat
     total_konsumsi(alat1);
 
-    // menampilkan output-output yang dibutuhkan (display)
-    for (int i = 0; i < 9; i++) {
-        printf("%d %s menyala selama %d jam/hari dengan masing masing memakan daya: %d Wh/hari atau %d Wh/bulan\n", 
-        alat1[i].jumlahAlat, namaAlat[i], alat1[i].jamPemakaian, 
-        (alat1[i].jumlahKonsumsi / 30), alat1[i].jumlahKonsumsi);
-    }
-
     // memanggil fungsi tipe_rumah
     tipe_rumah(alat1, &infoRumah);
+
     // memanggil fungsi perbandingan
     perbandingan(alat1);
-    printf("\nTotal Konsumsi Listrik Selama Sebulan %.2f KWh", (infoRumah.total / KILO));
-    // memanggil fungsi sorting
+
+    printf("\n-----------------------------------------------------------------\n");
+    printf("Total Konsumsi Listrik Selama Sebulan adalah %.2f KWh", (infoRumah.total / KILO));
+
+    // memanggil fungsi sorting yang berisi tabel penggunaan setiap alat 
+    // yang telah disorting berdasarkan beban daya dari yang tertinggi
     sort(alat1, namaAlatSorted);
+
     // memanggil fungsi rekomendasi
     rekomendasi(alat1);
 
@@ -99,23 +98,19 @@ int main() {
     // menampilkan tipe rumah yang didapatkan dari hasil validasi fungsi tipe_rumah
     switch (infoRumah.tpRumah) {
         case KOS:
-            puts("Anda tinggal di KOS!");
+            puts("Anda tinggal di KOS!\n");
             break;
         case KECIL:
-            puts("Tipe rumah anda KECIL!");
+            puts("Tipe rumah anda KECIL!\n");
             break;
         case SEDANG:
-            puts("Tipe rumah anda SEDANG!");
+            puts("Tipe rumah anda SEDANG!\n");
             break;
         case BESAR:
-            puts("Tipe rumah anda BESAR!");
+            puts("Tipe rumah anda BESAR!\n");
             break;
     }
-    
-    // printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
-    // for (int i = 0; i < 9; i++) {
-    //     printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlat[i], alat1[i].jumlahAlat, alat1[i].jamPemakaian, alat1[i].jumlahKonsumsi, alat1[i].status == OVER ? "OVER" : "NORMAL");
-    // }
+
     return 0;
 }
 
@@ -172,94 +167,66 @@ void perbandingan(alat *alat_point) {
 
 // fungsi rekomendasi, berfungsi untuk menampilkan hasil dari validasi yang telah dilakukan di fungsi perbandingan. Jika over akan diberikan saran, dan jika normal tidak menampilkan apa2.
 void rekomendasi(alat *alat_point) {
-    printf("\n\nRekomendasi: \n");
+    printf("\nRekomendasi: \n");
     for(int i = 0; i < 9; i++){
         switch(i){
             case 0:
-                printf("AC: \n");
                 if(alat_point[i].status == OVER){
+                    printf("AC: \n");
                     printf("- Kurangi durasi pemakaian\n- Atur suhu 26-27°C\n- Gunakan mode eco/sleep\n- Servis filter berkala\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 1:
-                printf("\nKULKAS: \n");
+            case 1:               
                 if(alat_point[i].status == OVER){
+                    printf("\nKULKAS: \n");
                     printf("- Cek karet pintu & freon\n- Jangan buka pintu terlalu lama\n- Jaga jarak kulkas dari dinding\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 2:
-                printf("\nMESIN CUCI: \n");
+            case 2:                
                 if(alat_point[i].status == OVER){
+                    printf("\nMESIN CUCI: \n");
                     printf("- Gunakan air suhu normal\n- Cuci dengan muatan penuh\n- Gunakan mode eco\n- Hindari mode pengering berlebihan\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 3:
-                printf("\nSETRIKA: \n");
+            case 3:                
                 if(alat_point[i].status == OVER){
+                    printf("\nSETRIKA: \n");
                     printf("- Gunakan suhu sesuai bahan\n- Setrika banyak pakaian sekaligus\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 4:
-                printf("\nDISPENSER: \n");
+            case 4:                
                 if(alat_point[i].status == OVER){
+                    printf("\nDISPENSER: \n");
                     printf("- Matikan saat tidak digunakan\n- Ganti dengan termos listrik pintar\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 5:
-                printf("\nPOMPA AIR: \n");
+            case 5:                
                 if(alat_point[i].status == OVER){
+                    printf("\nPOMPA AIR: \n");
                     printf("- Deteksi kebocoran\n- Gunakan toren besar\n- Pasang pelampung otomatis\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 6:
-                printf("\nTV: \n");
+            case 6:                
                 if(alat_point[i].status == OVER){
+                    printf("\nTV: \n");
                     printf("- Gunakan TV LED\n- Matikan saat tidak digunakan\n- Gunakan mode eco\n- Batasi waktu menonton\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 7:
-                printf("\nLampu: \n");
+            case 7:                
                 if(alat_point[i].status == OVER){
+                    printf("\nLampu: \n");
                     printf("- Gunakan lampu LED\n- Matikan saat tidak digunakan\n");
                 }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
-                }
                 break;
-            case 8:
-                printf("\nRICE COOKER: \n");
+            case 8:                
                 if(alat_point[i].status == OVER){
+                    printf("\nRICE COOKER: \n");
                     printf("- Matikan mode keep warm setelah 1-2 jam setelah memasak\n- Gunakan magic jar terpisah jika hanya ingin menghangatkan\n");
-                }
-                else{
-                    printf("Sudah digunakan secara efisien\n");
                 }
                 break;
         }
     }
 }
-
 
 // fungsi sort, berfungsi untuk melakukan sorting pada array nama alat, yang diurutkan berdasarkan jumlah konsumsi tertinggi dari yang terendah
 void sort(alat *alat_point, char namaAlatSorted[][20]){
@@ -281,14 +248,16 @@ void sort(alat *alat_point, char namaAlatSorted[][20]){
         }
     }
 
-    printf("\n------------------------------------------------------------------------------------------\n");
-    printf("\n%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
-    // for (i = 8; i >= 0; i--) {
-    //     printf("%s: %d Wh\n", namaAlatSorted[i], alat_point[i].jumlahKonsumsi);
-    // }
-    printf("--------------------------------------------------------------------------------------------\n");
+    printf("\n-----------------------------------------------------------------\n");
+    printf("%-15s %-10s %-10s %-15s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln", "Status");
+    printf("-----------------------------------------------------------------\n");
 
     for (int i = 8; i >= 0; i--) {
-        printf("%-15s %-10d %-10d %-15d %-10s\n", namaAlatSorted[i], alat_point[i].jumlahAlat, alat_point[i].jamPemakaian, alat_point[i].jumlahKonsumsi, alat_point[i].status == OVER ? "OVER" : "NORMAL");
+        printf("%-15s %-10d %-10d %-15d %-10s\n", 
+            namaAlatSorted[i], 
+            alat_point[i].jumlahAlat, 
+            alat_point[i].jamPemakaian, 
+            alat_point[i].jumlahKonsumsi, 
+            alat_point[i].status == OVER ? "OVER" : "NORMAL");
     }
 }
