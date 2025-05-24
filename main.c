@@ -60,6 +60,8 @@ int main() {
         strcpy(namaAlatSorted[i], namaAlat[i]);
     }
 
+    printf("===== Housing Energy Monitor =====\n");
+
     // meminta input dari user dengan validasi jam pemakaian tidak boleh lebih dari 24 jam, dan jumlah alat serta jam pemakaian tidak bisa di bawah 0
     for(int i = 0; i < 9; i++) {
         printf("Jumlah %s: ", namaAlat[i]);
@@ -90,26 +92,27 @@ int main() {
     // yang telah disorting berdasarkan beban daya dari yang tertinggi
     sort(alat1, namaAlatSorted);
 
-    // memanggil fungsi rekomendasi
-    rekomendasi(alat1);
-
-    puts("");
-
     // menampilkan tipe rumah yang didapatkan dari hasil validasi fungsi tipe_rumah
+    printf("-----------------------------------------------------------------\n");
     switch (infoRumah.tpRumah) {
         case KOS:
-            puts("Anda tinggal di KOS!\n");
+            puts("Hunian Anda setara dengan tipe KOS.");
             break;
         case KECIL:
-            puts("Tipe rumah anda KECIL!\n");
+            puts("Hunian Anda termasuk tipe KECIL.");
             break;
         case SEDANG:
-            puts("Tipe rumah anda SEDANG!\n");
+            puts("Hunian Anda termasuk tipe SEDANG.");
             break;
         case BESAR:
-            puts("Tipe rumah anda BESAR!\n");
+            puts("Hunian Anda termasuk tipe BESAR.");
             break;
     }
+    printf("-----------------------------------------------------------------\n");
+    // memanggil fungsi rekomendasi
+    rekomendasi(alat1);
+    printf("-----------------------------------------------------------------\n");
+    
 
     return 0;
 }
@@ -167,7 +170,7 @@ void perbandingan(alat *alat_point) {
 
 // fungsi rekomendasi, berfungsi untuk menampilkan hasil dari validasi yang telah dilakukan di fungsi perbandingan. Jika over akan diberikan saran, dan jika normal tidak menampilkan apa2.
 void rekomendasi(alat *alat_point) {
-    printf("\nRekomendasi: \n");
+    printf("Rekomendasi: \n");
     for(int i = 0; i < 9; i++) {                        
         if(alat_point[i].status == OVER) {
             switch(i) {
@@ -176,35 +179,35 @@ void rekomendasi(alat *alat_point) {
                     printf("- Kurangi durasi pemakaian\n- Atur suhu 26-27°C\n- Gunakan mode eco/sleep\n- Servis filter berkala\n");
                     break;
                 case 1:               
-                    printf("\nKULKAS: \n");
+                    printf("KULKAS: \n");
                     printf("- Cek karet pintu & freon\n- Jangan buka pintu terlalu lama\n- Jaga jarak kulkas dari dinding\n");
                     break;
                 case 2:                
-                    printf("\nMESIN CUCI: \n");
+                    printf("MESIN CUCI: \n");
                     printf("- Gunakan air suhu normal\n- Cuci dengan muatan penuh\n- Gunakan mode eco\n- Hindari mode pengering berlebihan\n");
                     break;
                 case 3:                
-                    printf("\nSETRIKA: \n");
+                    printf("SETRIKA: \n");
                     printf("- Gunakan suhu sesuai bahan\n- Setrika banyak pakaian sekaligus\n");
                     break;
                 case 4:                
-                    printf("\nDISPENSER: \n");
+                    printf("DISPENSER: \n");
                     printf("- Matikan saat tidak digunakan\n- Ganti dengan termos listrik pintar\n");
                     break;
                 case 5:                
-                    printf("\nPOMPA AIR: \n");
+                    printf("POMPA AIR: \n");
                     printf("- Deteksi kebocoran\n- Gunakan toren besar\n- Pasang pelampung otomatis\n");
                     break;
                 case 6:                
-                    printf("\nTV: \n");
+                    printf("TV: \n");
                     printf("- Gunakan TV LED\n- Matikan saat tidak digunakan\n- Gunakan mode eco\n- Batasi waktu menonton\n");
                     break;
                 case 7:                
-                    printf("\nLampu: \n");
+                    printf("Lampu: \n");
                     printf("- Gunakan lampu LED\n- Matikan saat tidak digunakan\n");
                     break;
                 case 8:
-                    printf("\nRICE COOKER: \n");
+                    printf("RICE COOKER: \n");
                     printf("- Matikan mode keep warm setelah 1-2 jam setelah memasak\n- Gunakan magic jar terpisah jika hanya ingin menghangatkan\n");
                     break;
             }
