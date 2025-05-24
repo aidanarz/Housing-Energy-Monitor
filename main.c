@@ -48,6 +48,8 @@ void total_konsumsi(alat *alat_point);
 void perbandingan(alat *alat_point);
 void rekomendasi(alat *alat_point);
 void sort(alat *alat_point, char namaAlatSorted[][20]);
+void copyArray(char destinationArray[][20], const char *sourceArray[]);
+void printGUI(alat *alat_point, char namaAlatSorted[][20], info *infoRumah);
 
 int main() {
     // define variabel struct dan array
@@ -55,10 +57,9 @@ int main() {
     info infoRumah;
     char namaAlatSorted[9][20];
 
-    // looping untuk mencopy string dari array namaAlat ke namaAlatSorted
-    for(int i = 0; i < 9; i++) {
-        strcpy(namaAlatSorted[i], namaAlat[i]);
-    }
+    // memanggil fungsi copyArray
+    copyArray(namaAlatSorted, namaAlat);
+    
 
     printf("===== Housing Energy Monitor =====\n");
 
@@ -88,33 +89,25 @@ int main() {
     printf("\n-----------------------------------------------------------------\n");
     printf("Total Konsumsi Listrik Selama Sebulan adalah %.2f KWh", (infoRumah.total / KILO));
 
-    // memanggil fungsi sorting yang berisi tabel penggunaan setiap alat 
-    // yang telah disorting berdasarkan beban daya dari yang tertinggi
+    // memanggil fungsi sorting
     sort(alat1, namaAlatSorted);
 
-    // menampilkan tipe rumah yang didapatkan dari hasil validasi fungsi tipe_rumah
-    printf("-----------------------------------------------------------------\n");
-    switch (infoRumah.tpRumah) {
-        case KOS:
-            puts("Hunian Anda setara dengan tipe KOS.");
-            break;
-        case KECIL:
-            puts("Hunian Anda termasuk tipe KECIL.");
-            break;
-        case SEDANG:
-            puts("Hunian Anda termasuk tipe SEDANG.");
-            break;
-        case BESAR:
-            puts("Hunian Anda termasuk tipe BESAR.");
-            break;
-    }
-    printf("-----------------------------------------------------------------\n");
+    // memanggil fungi table
+    printGUI(alat1, namaAlatSorted, &infoRumah);
+
     // memanggil fungsi rekomendasi
     rekomendasi(alat1);
     printf("-----------------------------------------------------------------\n");
     
 
     return 0;
+}
+
+// fungsi copyArray, untuk menaruh array yang ingin dicopy ke suatu array baru
+void copyArray(char destinationArray[][20], const char *sourceArray[]) {
+    for(int i = 0; i < 9; i++) {
+        strcpy(destinationArray[i], sourceArray[i]);
+    }
 }
 
 // fungsi tipe_rumah, berfungsi sebagai menghitung seluruh nilai konsumsi alat-alat yang ada, dan nilai tersebut dilakukan validasi untuk dimasukkan ke dalam struct infoRumah
@@ -234,7 +227,10 @@ void sort(alat *alat_point, char namaAlatSorted[][20]){
             }
         }
     }
+}
 
+// fungsi printGUI, berfungsi untuk mencetak seluruh data yang telah dikelola secara berurutan dalam bentuk table
+void printGUI(alat *alat_point, char namaAlatSorted[][20], info *infoRumah) {
     printf("\n-----------------------------------------------------------------\n");
     printf("%-15s %-10s %-10s %-20s %-10s\n", "Alat", "Jumlah", "Jam/Hari", "Konsumsi/Bln(Wh)", "Status");
     printf("-----------------------------------------------------------------\n");
@@ -247,4 +243,22 @@ void sort(alat *alat_point, char namaAlatSorted[][20]){
             alat_point[i].jumlahKonsumsi, 
             alat_point[i].status == OVER ? "OVER" : "NORMAL");
     }
+
+    // menampilkan tipe rumah yang didapatkan dari hasil validasi fungsi tipe_rumah
+    printf("-----------------------------------------------------------------\n");
+    switch (infoRumah->tpRumah) {
+        case KOS:
+            puts("Hunian Anda setara dengan tipe KOS.");
+            break;
+        case KECIL:
+            puts("Hunian Anda termasuk tipe KECIL.");
+            break;
+        case SEDANG:
+            puts("Hunian Anda termasuk tipe SEDANG.");
+            break;
+        case BESAR:
+            puts("Hunian Anda termasuk tipe BESAR.");
+            break;
+    }
+    printf("-----------------------------------------------------------------\n");
 }
