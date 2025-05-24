@@ -14,9 +14,6 @@
 #define WATT_LAMPU 10
 #define WATT_RICE_COOKER 400
 
-// membuat list alat tetap yang akan digunakan dalam bentuk array
-const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
-
 // membuat enum, dan struct yang dibutuhkan 
 typedef enum{
     NORMAL,
@@ -52,6 +49,9 @@ void copyArray(char destinationArray[][20], const char *sourceArray[]);
 void printGUI(alat *alat_point, char namaAlatSorted[][20], info *infoRumah);
 
 int main() {
+    // membuat list alat tetap yang akan digunakan dalam bentuk array
+    const char* namaAlat[] = {"AC", "KULKAS", "MESIN CUCI", "SETRIKA", "DISPENSER", "POMPA AIR", "TV", "LAMPU", "RICE COOKER"};
+
     // define variabel struct dan array
     alat alat1[9];
     info infoRumah;
@@ -60,23 +60,25 @@ int main() {
     // memanggil fungsi copyArray
     copyArray(namaAlatSorted, namaAlat);
     
-
     printf("===== Housing Energy Monitor =====\n");
 
     // meminta input dari user dengan validasi jam pemakaian tidak boleh lebih dari 24 jam, dan jumlah alat serta jam pemakaian tidak bisa di bawah 0
     for(int i = 0; i < 9; i++) {
+        int tempJumlah, tempJam;
         printf("Jumlah %s: ", namaAlat[i]);
-        scanf("%d", &alat1[i].jumlahAlat);
+        scanf("%d", &tempJumlah);
         printf("Jam Pemakaian %s: ", namaAlat[i]);
-        scanf("%d", &alat1[i].jamPemakaian);
-
-        // error handling untuk inputan user
-        if(alat1[i].jamPemakaian > 24 || alat1[i].jumlahAlat < 0 || alat1[i].jamPemakaian < 0) {
+        scanf("%d", &tempJam);
+    
+        if (tempJam > 24 || tempJumlah < 0 || tempJam < 0) {
             printf("Jumlah perangkat atau jam penggunaannya salah!\n");
-            i--; // repeat this alat
+            i--; // ulangi input alat yang sama
+        } else {
+            alat1[i].jumlahAlat = tempJumlah;
+            alat1[i].jamPemakaian = tempJam;
         }
     }
-
+    
     // memanggil function total_konsumsi yang mengirimkan pointer dari struct alat
     total_konsumsi(alat1);
 
